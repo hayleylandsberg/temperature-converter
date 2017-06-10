@@ -10,7 +10,7 @@ let fahrBtn = document.getElementById("fahrBtn");
 let input = document.getElementById("input");
 var button = document.getElementById("converter");
 var clicked = false;
-
+var clear = document.getElementById("clear");
 
 // This function should determine which conversion should
 // happen based on which radio button is selected.
@@ -26,14 +26,30 @@ var celsius = ((parseInt(input.value) - 32) / 1.8);
 	div.innerHTML += `The temperature converts to ${celsius} celsius! `;
 } else {
 	alert("Please select starting temperature measurement.")
-}};
+}
+};
+
+//Clear button function
+function clearElement (clickEvent) {
+	document.getElementById("celsBtn").checked = false;
+	document.getElementById("fahrBtn").checked = false;
+	input.value.innerHTML = "";
+	document.getElementById("input").value = "";
+}
 
 // Assign a function to be executed when the button is clicked
 button.addEventListener("click", determineConverter);
+clear.addEventListener("click", clearElement);
 
-//Trying to get button to work when the enter key is pressed.
-  document.getElementById('converter').addEventListener('keypress', function(event) {
-        if (event.keyCode == 13) {
-            event.preventDefault();
-        }
-    });
+
+//Trying to add Color:
+
+  function color(event) {
+	if (parseInt(fahrenheit) > 90 || parseInt(celsius) > 32) {
+		convertedTemp.style.color= "red";
+	} else if (fahrenheit < 32 || celsius < 0) {
+		convertedTemp.style.color= "blue";
+	} else {
+		convertedTemp.style.color= "green";
+	}
+};
