@@ -14,14 +14,16 @@ var clear = document.getElementById("clear");
 
 // This function should determine which conversion should
 // happen based on which radio button is selected.
-function determineConverter (clickEvent) {
-  console.log("event", clickEvent);
-var fahrenheit = ((parseInt(input.value) * 1.8) + 32);
+function determineConverter () {
+
+var fahrenheit =((parseInt(input.value) * 1.8) + 32);
 var celsius = ((parseInt(input.value) - 32) / 1.8);
   if (celsBtn.checked) {
+  	color("F", fahrenheit);
   	var div = document.getElementById("convertedTemp");
 	div.innerHTML += `The temperature converts to ${fahrenheit} fahrenheit! `;
 } else if (fahrBtn.checked) {
+	color("C", celsius);
 	var div = document.getElementById("convertedTemp");
 	div.innerHTML += `The temperature converts to ${celsius} celsius! `;
 } else {
@@ -44,12 +46,25 @@ clear.addEventListener("click", clearElement);
 
 //Trying to add Color:
 
-  function color(event) {
-	if (parseInt(fahrenheit) > 90 || parseInt(celsius) > 32) {
+  function color(type, temp) {
+	if ((type === "F" && temp > 90) || (type === "C" && temp > 32)) {
 		convertedTemp.style.color= "red";
-	} else if (fahrenheit < 32 || celsius < 0) {
+	} else if ((type === "F" && temp < 32) || (type === "C" && temp < 0)) {
 		convertedTemp.style.color= "blue";
 	} else {
 		convertedTemp.style.color= "green";
 	}
+	console.log("temp", temp);
 };
+
+
+input.addEventListener("keypress", function(event) {
+	console.log(event);
+	if (event.which === 13) {
+		event.preventDefault();
+		console.log("enter press");
+		determineConverter();
+	} else {
+		console.log("error");
+	}
+});
